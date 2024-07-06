@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<section id="signup-page" class="form">
+  <div class="card--form">
+    <h2 class="form-title">CREATE NEW ACCOUNT</h2>
+    <form class="form-start" action="{% url 'signup' %}" method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <div class="btn__container--centered">
+        <button type="submit" class="btn btn--submit">CREATE ACCOUNT</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+{% endblock content %}

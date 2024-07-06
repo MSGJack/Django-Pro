@@ -1,0 +1,45 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<section id="menu" class="page">
+  <div class="display-head">
+    <h2 class="heading-centered">Recipes</h2>
+  <hr/>
+  <div class="menu-add">
+    <p>
+    <a href="{% url 'add_recipe' %}">Add New Recipe</a>
+    </p> 
+  </div>
+  </div>
+<hr/>
+  <div class="display-items">
+    {% if recipe_list %}
+    <h4 class="heading-centered">Recipe List</h4>
+    <div class="menu-table"> 
+      <table class="table">
+        <thead> 
+          <tr>
+            <th>Item</th>
+            <th>Quantity</th>
+            <th>Ingredient</th>
+            <th>Update</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for r in recipe_list %}
+          <tr class="table_row">
+            <td>{{r.menu_item}}</td>
+            <td>{{r.quantity}}</td>
+            <td>{{r.ingredient}}</td>
+            <td><a href="{% url "update_recipe" r.id %}">Edit</a></td>
+            <td><a href="{% url "delete_recipe" r.id %}">Remove</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>There are no recipes right now.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

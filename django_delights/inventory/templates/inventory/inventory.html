@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %} 
+<section id="menu" class="i-page">   
+    <div class="display-head">
+    <h2 class="heading-centered">Ingredients</h2> 
+    <hr/>  
+    <div class="menu-add">
+    <a href="{% url 'add_ingredient' %} ">Add New Ingredient to Inventory</a>
+    </div>
+</div>
+    <hr/> 
+    <div class="display-items"> 
+            {% if ingredient_list %}
+                <h3 class="heading-centered">Your Ingredients</h3>
+                <div class="menu-table"> 
+    <table class="table"> 
+        <thead class="table-head-row">
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ingredient in ingredient_list %}
+            <tr class="table_row">
+                <td>
+                   {{ ingredient.name }}
+                </td>
+                <td>{{ ingredient.quantity }}</td>
+                <td>{{ ingredient.unit }}</td>
+                <td class="price">${{ ingredient.unit_price|stringformat:".2f" }}</td>
+                <td>
+                    <a href="{% url "update_ingredient" ingredient.id %}">Edit</a>
+                </td>
+                <td>
+                    <a href="{% url "delete_ingredient" ingredient.id %}">X</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table> 
+</div>
+    {% else %}
+    <p>There are no ingredients in your inventory.</p>
+    {% endif %}
+</div>
+</section>
+{% endblock %}  

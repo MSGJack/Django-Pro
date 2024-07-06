@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="https://www.codecademy.com/favicon.ico"
+    />
+    <link 
+      rel="stylesheet"
+      type="text/css" 
+      href="{% static 'inventory/styles.css' %}?{% now 'U' %}"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ:wght@100..400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Actor&display=swap" rel="stylesheet">
+    <title>{% block title %}Django Delights{% endblock %}</title>
+    {% block head %}{% endblock %}
+  </head>
+  <body>         
+    <header>  
+      <div id="navigation" >
+          <a class="brand" href="{% url 'home' %}">Django Delights</a>
+        <nav class="nav-display">
+          <ul class="nav-list">
+            {% if user.is_authenticated %}
+            <p class="greet">Hi, {{ user.username }}!</p>
+            <li class="nav-items"><a href="{% url 'menu' %}">Menu</a></li>
+            <li class="nav-items"><a href="{% url 'inventory' %}">Inventory</a></li>
+            <li class="nav-items"><a href="{% url 'purchases' %}">Purchases</a></li>
+            <li class="nav-items"><a href="{% url 'reports' %}">Reports</a></li>
+            <li class="nav-items"><a href="{% url 'logout' %}">Sign Out</a></li>
+    {% else %}
+          <li><a href="{% url 'login' %}" class=" btn"><li>LOGIN</li></a></li>
+          <li><a href="{% url 'signup' %}" class="btn"><li>CREATE ACCOUNT</li></a></li>
+      </ul>
+    </nav>
+  </div>
+  {% endif %}
+    </header>
+    <div class="app">
+    <main>{% block content %}{% endblock %}</main>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+{% extends 'base.html'%} {% load static %} {% block content %}
+<div>
+<hr />
+<div>
+<h2>Totals</h2>
+<div style="color: green">Total Revenue:+ ${{ totalRevenue|stringformat:".2f" }}</div>
+<div style="color: red">Total Cost:- ${{ totalCost|stringformat:".2f" }}</div>
+<div style="color: blue">Total Profit:+ ${{ profit|stringformat:".2f" }}</div>
+</div>
+<hr />
+  <div class="reports-page">
+    <div class="profit">Current Profit: ${{profit|floatformat:2}}</div>
+    <div class="report-layout">
+      <div class="report-table">
+        <h4>Revenue</h4>
+        <table class="table-striped">
+          <tr>
+            <th>Cost</th>
+            <th>Item</th>
+            <th>Purchased At</th>
+          </tr>
+          <tbody class="green-table">  
+          {% for p in purchases %}
+          <tr>
+            <td class="price">+ ${{ p.menu_item.price|stringformat:".2f" }}</td>
+            <td>{{ p.menu_item.name }}</td>
+            <td>{{ p.timestamp }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+        <p>Revenue:+ $ {{totalRevenue|floatformat:2}}</p>
+      </div>
+      <hr />
+      <div class="cost">
+        <h4>Costs</h4>
+        <table>
+          <tr>
+            <th>Amount</th>
+          </tr>
+          <tbody class="cost-table">
+          {% for cost in costs %}
+          <tr>
+            <td>- ${{cost|floatformat:2}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+        <p>Cost:- $ {{totalCost|floatformat:2}}</p>
+      </div>
+    </div>
+  </div>
+    {% endblock %}
+  </div>
+</div>

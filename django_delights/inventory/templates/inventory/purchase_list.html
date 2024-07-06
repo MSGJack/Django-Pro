@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<section id="menu" class="page">
+  <div class="display-head">
+    <h2 class="heading-centered">Purchases</h2>
+    <hr />
+    <div class="menu-add">
+      <a href="{% url 'add_purchase' %}">Record New Purchase</a>
+    </div>
+  </div>
+  <hr />
+  <div class="display-items">
+    {% if purchase_list %}
+    <h3 class="heading-centered">Purchases</h3>
+    <div class="menu-table">
+      <table class="table">
+        <thead class="table-head-row">
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in purchase_list%}
+          <tr class="table_row">
+            <td>{{p.menu_item.name}}</td>
+            <td>${{p.menu_item.price|stringformat:".2f"}}</td>
+            <td>{{p.timestamp}}</td>
+          </tr>
+          {% endfor%}
+        </tbody>
+      </table>
+    </div>
+    {% else %}
+    <p>No purchases have been made.</p>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html'%} {% load static %} {% block content %}
+<section id="menu" class="page">
+<div class="display-head">
+        <h2 class="heading-centered">Menu Items and Recipes</h2> 
+    <hr />
+    <div class="menu-add"> 
+      <p>
+        <a href="{% url 'menu_item_create' %}">Add New Item to Menu</a>
+      </p>
+    </div>
+</div>
+<hr />
+<div class="display-items">
+    <h3 class="heading-centered">Menu List</h3>
+    <div class="menu-table">
+        <table class="table">
+            <thead class="table-head-row">
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Ingredients</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+            </thead>
+            <tbody>
+                {% for item in menuitems %}
+                <tr>
+                    <td>{{item.name}}</td>
+                    <td>${{item.price|floatformat:2}}</td>
+    <td>{{item.description}}</td>
+    <td>
+      {% for req in reqs %} {% if req.menu_item.name == item.name %}
+      <p>
+        <a href="{% url 'update_recipe' req.id %}"
+          >{{req.quantity}} {{req.ingredient.unit|lower}}
+          {{req.ingredient.name}}</a
+        ><a href="{% url 'delete_recipe' req.id %}"> ✖️</a>
+      </p>
+      {% endif %} {% endfor %}
+      <p>
+        <a class="btn btn-outline-dark" href="{% url 'add_recipe' %}"
+          >Add Ingredient</a
+        >
+      </p>
+    </td>
+    <td><a href="{% url 'update_recipe' item.id %}">Update</a></td>
+    <td><a href="{% url 'menu_item_delete' item.id %}">✖️</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+</section>
+{% endblock %} 

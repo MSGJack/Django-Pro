@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<h2>Delete Ingredient</h2>
+<form method="post">
+  {% csrf_token %}
+  <p>Are you sure you want to delete "{{ object }}"?</p>
+  <input type="submit" value="Confirm" />
+</form>
+<hr />
+<a href=" {% url 'inventory' %}" class="navlinks">Go Back To Inventory</a>
+{% endblock %}
